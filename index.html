@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>김윤아 | 개발자 소개</title>
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --primary: #2563eb;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 680px;
+      width: 100%;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 32px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    header {
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+    }
+    h1 { font-size: 1.75rem; margin-bottom: 8px; color: var(--text-main); }
+    .target-desc {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.95rem;
+      background: #eff6ff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    section { margin-top: 24px; }
+    h2 { font-size: 1.2rem; margin-bottom: 12px; color: var(--text-main); }
+    ul { list-style: none; }
+    li {
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      background: #f1f5f9;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      color: var(--text-sub);
+    }
+    li strong { color: var(--text-main); }
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .tag {
+      background: #e2e8f0;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .actions {
+      margin-top: 32px;
+      display: flex;
+      gap: 12px;
+    }
+    button, a.btn {
+      display: inline-block;
+      text-decoration: none;
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 10px 18px;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    button:hover, a.btn:hover, button:focus, a.btn:focus {
+      background-color: #1d4ed8;
+      outline: 2px solid #93c5fd;
+    }
+    #msg {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #16a34a;
+      font-weight: 500;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>김윤아 (Yuna Kim)</h1>
+      <!-- T01-C03: 대상과 목적 1문장 -->
+      <p class="target-desc">협업 동료 및 멘토에게 소프트웨어 학습 여정과 소통 역량을 명확히 공유하기 위한 페이지입니다.</p>
+    </header>
+
+    <section>
+      <h2>공개 정보 (3가지)</h2>
+      <ul>
+        <li><strong>1. 관심 및 학습 분야:</strong> 웹 프론트엔드/백엔드 개발 및 데이터 기반 서비스 구축</li>
+        <li><strong>2. 협업 및 문제해결 강점:</strong> 대화의 흐름과 사용자 의도를 빠르게 파악하여 원활한 소통을 이끄는 팀워크</li>
+        <li><strong>3. 학습 중인 핵심 기술:</strong>
+          <div class="tag-container">
+            <span class="tag">HTML5 / CSS3</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Git & GitHub</span>
+            <span class="tag">Docker</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>비공개 원칙 (개인정보 보호 3가지)</h2>
+      <ul>
+        <li><strong>1. 민감 연락처 비공개:</strong> 개인 휴대전화 번호 및 상세 거주지 주소 미기재</li>
+        <li><strong>2. 고유 식별 정보 보호:</strong> 주민등록번호, 계좌번호 등 금융·인증 정보 절대 미포함</li>
+        <li><strong>3. 보안 비밀값 보호:</strong> API 인증 키, 토큰 및 개인 계정 패스워드 미포함</li>
+      </ul>
+    </section>
+
+    <div class="actions">
+      <button type="button" id="contact-btn">상호작용 확인</button>
+    </div>
+    <p id="msg" role="status">정상적으로 상호작용되었습니다. 환영합니다!</p>
+  </main>
+
+  <script>
+    const btn = document.getElementById('contact-btn');
+    const msg = document.getElementById('msg');
+    btn.addEventListener('click', () => {
+      msg.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
