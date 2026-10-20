@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="30초 신호 타이밍 미니게임 — 마우스·키보드로 플레이하고, 난이도를 한 가지 값으로 비교합니다.">
+  <title>SIGNAL 30 | 윤아의 미니게임</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a href="#game" class="skip-link">게임으로 바로가기</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span> SIGNAL <b>30</b></a>
+      <nav aria-label="페이지 탐색">
+        <a href="#rules">규칙</a><a href="#game">게임</a><a href="#results">20판 기록</a><a href="#checks">검사 방법</a>
+      </nav>
+    </div>
+  </header>
+  <main id="top">
+    <section class="intro shell" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">ALEPH · T02 / MINI GAME</p>
+        <h1 id="page-title">SIGNAL <span class="highlight">30</span></h1>
+        <p class="intro-copy">30초 동안 하늘색으로 켜지는 신호를 포착하세요. 1초에 한 번 기회가 오고, <strong>16개 이상</strong> 잡으면 성공입니다.</p>
+      </div>
+      <div class="intro-side" id="rules">
+        <p><strong>조작</strong> 신호 버튼 클릭 또는 Tab으로 선택 후 Enter / Space</p>
+        <p><strong>기본 규칙</strong> 30초 · 1초당 1번 · 16개 성공</p>
+        <p><strong>상태</strong> 대기 → 진행 → 성공 / 실패 → 다시 시작</p>
+      </div>
+    </section>
+
+    <section class="game-section" id="game" aria-labelledby="game-title">
+      <div class="shell">
+        <div class="section-head">
+          <div><p class="eyebrow">01 / PLAY</p><h2 id="game-title">30초 신호 타이밍</h2></div>
+          <div class="round-badge" id="round-status">기본 난이도 · 기록 0/10</div>
+        </div>
+        <div class="game-board" id="game-board">
+          <div class="stats-grid" aria-label="게임 현황">
+            <div class="stat"><span>상태</span><strong id="game-state">대기</strong></div>
+            <div class="stat"><span>남은 시간</span><strong id="time-remaining" aria-label="남은 시간">30.0초</strong></div>
+            <div class="stat"><span>잡은 신호</span><strong id="score">0 / 16</strong></div>
+            <div class="stat"><span>다음 신호</span><strong id="signal-index">0 / 30</strong></div>
+          </div>
+
+          <div class="play-zone">
+            <div class="signal-card" id="signal-card">
+              <div class="signal-led" id="signal-led" aria-hidden="true"><span class="signal-glyph">✦</span></div>
+              <p class="signal-caption" id="signal-caption">시작을 누르면 30초 게임이 시작됩니다.</p>
+              <button type="button" id="catch-button" class="catch-button" disabled>신호 잡기 <span aria-hidden="true">↗</span></button>
+              <p class="control-note">Tab으로 버튼 선택 → Enter 또는 Space. 마우스로 클릭해도 같아요.</p>
+            </div>
+            <div class="action-panel">
+              <p class="eyebrow">HOW TO PLAY</p>
+              <h3>빛이 켜졌을 때만 누르세요.</h3>
+              <p>신호는 1초마다 바뀌고, 밝게 켜진 순간에 버튼을 누르면 1점을 얻습니다. 각 신호마다 시도는 한 번입니다.</p>
+              <p>어두울 때 누르거나 아무것도 누르지 않으면 그 신호는 놓칩니다. <strong>30초 후 16점 이상이면 성공</strong>입니다.</p>
+              <div class="action-buttons">
+                <button type="button" id="start-button" class="button button-main">게임 시작</button>
+                <button type="button" id="pause-button" class="button button-outline" disabled>일시정지</button>
+                <button type="button" id="restart-button" class="button button-outline" disabled>다시 시작</button>
+              </div>
+              <p class="feedback" id="feedback" role="status" aria-live="polite">게임 시작을 눌러 준비해 주세요.</p>
+              <div class="preferences" aria-label="효과와 움직임 설정">
+                <label><input type="checkbox" id="sound-toggle"> 효과음 켜기 (기본 꺼짐)</label>
+                <label><input type="checkbox" id="motion-toggle"> 움직임 줄이기</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="results shell section-space" id="results" aria-labelledby="results-title">
+      <div class="section-head"><div><p class="eyebrow">02 / EXPERIMENT</p><h2 id="results-title">20판 기록 · 난이도 비교</h2></div><button type="button" class="button button-outline small" id="download-button" disabled>기록 CSV 저장</button></div>
+      <p class="section-copy">기본 난이도로 10판 플레이한 다음, <strong>신호가 켜져 있는 시간 한 가지만</strong> 바꿔 10판을 더 플레이합니다. 성공 기준과 제한 시간은 그대로입니다.</p>
+      <div class="difficulty-row">
+        <article class="difficulty-card" id="before-card"><span>BEFORE · 1~10판</span><h3>기본 난이도</h3><p>밝게 켜진 시간: <strong>700ms</strong></p><p id="before-count">기록 0 / 10</p></article>
+        <article class="difficulty-card" id="after-card"><span>AFTER · 11~20판</span><h3>조정 난이도</h3><p>밝게 켜진 시간: <strong>450ms</strong></p><p id="after-count">기록 0 / 10</p></article>
+      </div>
+      <div class="experiment-controls">
+        <button type="button" class="button button-main" id="change-button" disabled>10판 완료 후 난이도 변경</button>
+        <p id="experiment-info" aria-live="polite">기본 난이도의 첫 기록을 기다리는 중입니다.</p>
+      </div>
+      <div class="results-scroll">
+        <table class="record-table">
+          <caption>최근 게임 기록 — 20개까지 저장됩니다.</caption>
+          <thead><tr><th scope="col">순서</th><th scope="col">조건</th><th scope="col">성공</th><th scope="col">놓침</th><th scope="col">판정</th></tr></thead>
+          <tbody id="records-body"><tr><td colspan="5">아직 기록이 없습니다. 게임을 끝까지 플레이해 주세요.</td></tr></tbody>
+        </table>
+      </div>
+      <div class="comparison" id="comparison" aria-live="polite"><strong>비교 결과</strong><p>기본 10판과 조정 10판을 모두 마치면 성공률과 평균 점수를 비교할 수 있습니다.</p></div>
+      <div class="storage-actions">
+        <button type="button" class="button button-outline small" id="reset-button">저장 기록 초기화</button>
+        <p id="storage-info" role="status">게임 기록은 이 브라우저의 로컬 저장소에만 저장됩니다. 서버로 전송하지 않습니다.</p>
+      </div>
+    </section>
+
+    <section class="checks-section" id="checks" aria-labelledby="checks-title"><div class="shell section-space">
+      <p class="eyebrow">03 / TEST & PRIVACY</p><h2 id="checks-title">직접 검증할 항목</h2>
+      <div class="checks-grid">
+        <div><h3>조작과 화면</h3><p>1366×768과 1920×1080, 10분 연속 플레이, Tab·Enter·Space, 일시정지 후 재개, 콘솔 오류 0개를 확인합니다.</p></div>
+        <div><h3>저장 복구</h3><p>새 시크릿 창에서 기록이 없는 첫 실행과 손상된 로컬 기록의 초기화 처리를 확인합니다. 실제 기록은 CSV로 백업할 수 있습니다.</p></div>
+        <div><h3>접근성과 선택권</h3><p>효과음은 기본 꺼짐이고 언제든 끌 수 있습니다. 움직임 줄이기는 시각 전환 효과만 줄이고 판정 규칙은 바꾸지 않습니다.</p></div>
+      </div>
+      <p class="privacy-note">게임 결과에는 이름·연락처·비밀번호·API 키가 포함되지 않습니다. 저장하는 정보는 난이도 조건, 점수, 놓친 신호 수, 성공·실패 판정뿐입니다.</p>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="shell"><span>SIGNAL 30 · ALEPH T02</span><a href="#top">맨 위로 ↑</a></div></footer>
+</body>
+</html>
