@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="한 장 스튜디오: PNG·JPEG 이미지와 문구로 공유용 카드를 제작하고 저장하는 로컬 편집기">
+  <title>한 장 스튜디오 | 윤아</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a href="#editor" class="skip">편집 영역 바로가기</a>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="identity" href="#top" aria-label="한 장 스튜디오 맨 위로"><span class="logo-shape" aria-hidden="true"></span>한 장 스튜디오</a>
+      <span class="top-meta">T03 / 이미지 · 문구 편집기</span>
+      <a class="top-link" href="#templates">템플릿 관리 ↓</a>
+    </div>
+  </header>
+  <main class="container" id="top">
+    <section class="intro" aria-labelledby="intro-title">
+      <div><div class="kicker">CREATE ONE CARD AT A TIME</div><h1 id="intro-title">한 장에 담는 나의 문장.</h1><p>이미지와 문구를 함께 편집하고, 미리 본 그대로 다운로드하세요.</p></div>
+      <div class="intro-meta"><strong>화이트 · 차콜 · 하늘색</strong><span>이미지는 기기 안에서만 처리합니다</span></div>
+    </section>
+    <div class="editor-layout" id="editor">
+      <section class="panel controls" aria-labelledby="edit-title">
+        <div class="panel-head"><div><span class="section-id">01 / EDIT</span><h2 id="edit-title">카드 편집</h2></div><span class="chip">자동 미리보기</span></div>
+        <div class="control-body">
+          <fieldset class="field-group"><legend>배경 이미지</legend>
+            <label class="upload-button" for="image-input"><span aria-hidden="true">＋</span> PNG · JPEG 불러오기</label>
+            <input id="image-input" class="visually-hidden" type="file" accept=".png,.jpg,.jpeg,image/png,image/jpeg">
+            <p class="hint">12MB 이하. 잘못된 파일은 기존 작업을 유지합니다.</p>
+            <div class="preset-row" role="group" aria-label="제작한 배경 예제">
+              <button type="button" class="preset" data-bg="grid">기하학</button>
+              <button type="button" class="preset" data-bg="orbit">원형</button>
+              <button type="button" class="preset" data-bg="lines">선형</button>
+            </div>
+          </fieldset>
+          <fieldset class="field-group"><legend>문구</legend>
+            <label for="text-input" class="field-label">카드에 넣을 글</label>
+            <textarea id="text-input" rows="3" spellcheck="false" placeholder="여기에 문장을 입력하세요"></textarea>
+            <div class="under-field"><span>최대 160자 · 12줄</span><span id="char-count">0 / 160</span></div>
+          </fieldset>
+          <fieldset class="field-group"><legend>문구 꾸미기</legend>
+            <div class="field-flex"><label class="field-label" for="size-input">문구 크기</label><output id="size-value" for="size-input">64px</output></div>
+            <input id="size-input" type="range" min="28" max="112" step="2" value="64">
+            <span class="field-label">문구 색상</span>
+            <div class="color-options" role="group" aria-label="문구 색상">
+              <button class="color-option" data-color="#2d3138" type="button" aria-label="차콜" title="차콜"><span class="color-dot dot-charcoal"></span><span>차콜</span></button>
+              <button class="color-option" data-color="#ffffff" type="button" aria-label="화이트" title="화이트"><span class="color-dot dot-white"></span><span>화이트</span></button>
+              <button class="color-option" data-color="#dff2ff" type="button" aria-label="하늘색" title="하늘색"><span class="color-dot dot-sky"></span><span>하늘색</span></button>
+            </div>
+            <div class="position-head"><span class="field-label">문구 위치</span><span class="hint">미리보기에서 드래그 또는 방향키 사용</span></div>
+            <div class="coordinate-row"><label for="x-input">가로 <output id="x-value" for="x-input">50%</output></label><input id="x-input" type="range" min="8" max="92" value="50"></div>
+            <div class="coordinate-row"><label for="y-input">세로 <output id="y-value" for="y-input">52%</output></label><input id="y-input" type="range" min="8" max="92" value="52"></div>
+          </fieldset>
+          <fieldset class="field-group"><legend>이미지 비율</legend>
+            <div class="ratio-row" role="group" aria-label="출력 이미지 비율">
+              <button type="button" class="ratio" data-ratio="square"><strong>1:1</strong><small>정사각형</small></button>
+              <button type="button" class="ratio" data-ratio="portrait"><strong>4:5</strong><small>피드</small></button>
+              <button type="button" class="ratio" data-ratio="story"><strong>9:16</strong><small>스토리</small></button>
+            </div>
+          </fieldset>
+          <p id="editor-message" class="message" role="status" aria-live="polite">편집 준비 완료</p>
+        </div>
+      </section>
+      <section class="panel preview-panel" aria-labelledby="preview-title">
+        <div class="panel-head"><div><span class="section-id">02 / PREVIEW</span><h2 id="preview-title">최종 미리보기</h2></div><span id="image-size" class="chip">1080 × 1080</span></div>
+        <div class="preview-zone"><canvas id="preview-canvas" tabindex="0" aria-label="카드 이미지 미리보기. 방향키로 문구 이동" width="1080" height="1080"></canvas></div>
+        <div class="preview-foot"><p>화면에 보이는 이미지를 같은 캔버스에서 PNG로 내려받습니다.</p><div class="download-row"><button type="button" id="download-button" class="btn primary">PNG 다운로드 ↓</button><button type="button" id="export-json" class="btn secondary">JSON 백업 ↓</button></div></div>
+      </section>
+    </div>
+    <section class="panel templates-panel" id="templates" aria-labelledby="templates-title">
+      <div class="panel-head"><div><span class="section-id">03 / MY TEMPLATES</span><h2 id="templates-title">템플릿 관리</h2></div><span id="template-count" class="chip">0개 저장</span></div>
+      <div class="template-content"><p class="lead">문구, 배경, 비율, 색상, 크기, 위치를 함께 저장합니다. 브라우저에서 새로고침해도 유지돼요.</p>
+        <div class="template-tools"><label for="template-name">템플릿 이름<input type="text" id="template-name" value="나의 카드" maxlength="28" placeholder="템플릿 이름"></label><button id="save-template" class="btn primary" type="button">새 템플릿 저장 ＋</button><label for="json-input" class="btn secondary upload-label">JSON 불러오기 ↑</label><input id="json-input" class="visually-hidden" type="file" accept=".json,application/json"></div>
+        <div id="template-list" class="template-list" aria-live="polite"><p class="empty">저장한 템플릿이 없습니다. 먼저 카드 하나를 저장해 보세요.</p></div>
+        <div class="privacy-note"><strong>개인정보 · 저작권</strong><p>업로드한 파일과 템플릿은 기기의 브라우저 저장소에만 남고, 자동으로 서버에 전송되지 않습니다. JSON 백업 파일에는 업로드 이미지가 들어갈 수 있으므로 공유하기 전 내용을 확인하세요. 기본 도형 배경은 이 과제를 위해 직접 코드로 제작했습니다. 외부 이미지는 사용 권한과 출처를 직접 확인해 주세요.</p></div>
+      </div>
+    </section>
+    <footer class="footer"><span>한 장 스튜디오 · ALEPH T03</span><a href="#top">맨 위로 ↑</a></footer>
+  </main>
+</body>
+</html>
