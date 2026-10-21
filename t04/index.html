@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="실제 공개 API 데이터를 출처·시각·단위와 함께 보여주고, 데이터 장애 시 마지막 정상값과 실패 이유를 분리하는 정보판">
+  <link rel="icon" href="data:,">
+  <title>오늘의 정보판 | 실제 데이터와 오류 상태</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="official-adapter.js" defer></script>
+  <script src="official-fixtures.js" defer></script>
+  <script src="script.js" defer></script>
+  <script src="replay.js" defer></script>
+</head>
+<body>
+  <a href="#main" class="skip-link">본문으로 바로가기</a>
+  <header class="site-header">
+    <div class="shell header-content">
+      <a href="#top" class="brand" aria-label="오늘의 정보판 홈으로">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>오늘의 정보판</span>
+      </a>
+      <nav aria-label="주요 메뉴" class="nav-links">
+        <a href="#live">실시간 조회</a>
+        <a href="#history">일일 기록</a>
+        <a href="#replay">오류 재현</a>
+        <a href="#methods">검증 안내</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="intro" id="top">
+      <div class="shell intro-layout">
+        <div>
+          <p class="eyebrow">ALEPH STUDIO / T04 · REAL INFORMATION</p>
+          <h1>데이터가 올 때도,<br><span class="underlined">오지 않을 때도 정직하게.</span></h1>
+          <p class="intro-text">서울의 현재 기온을 공개 API로 조회합니다. 숫자뿐 아니라 출처와 기준 시각을 남기고, 실패가 발생하면 마지막 정상 기록과 오류를 구분합니다.</p>
+        </div>
+        <aside class="intro-aside" aria-label="정보판의 세 가지 원칙">
+          <div><span class="aside-index">01</span><strong>출처를 먼저</strong><span>값 · 단위 · 제공처</span></div>
+          <div><span class="aside-index">02</span><strong>실패는 분리</strong><span>실패 이유 · 마지막 성공</span></div>
+          <div><span class="aside-index">03</span><strong>날짜를 정확히</strong><span>Asia/Seoul 기준 기록</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section-shell shell" id="live" aria-labelledby="live-title">
+      <div class="section-title-row"><div><p class="eyebrow">01 / SOURCE</p><h2 id="live-title">서울의 현재 기온</h2></div><p class="quiet-label">공개 API 기반 · 조회 후 표시</p></div>
+      <div class="dashboard-grid">
+        <article class="card reading-card">
+          <div class="card-header"><span class="card-kicker">실제 공개 원천에서 조회</span><span class="state-pill" id="state-pill" aria-live="polite">조회 대기</span></div>
+          <div class="reading-main"><span class="temperature" id="temp" aria-live="polite">—</span><span class="temperature-unit" id="temp-unit">°C</span></div>
+          <p id="reading-caption" class="reading-caption">서버로부터 응답을 받기 전에는 값을 표시하지 않습니다.</p>
+          <div class="reading-actions"><button type="button" id="refresh-button" class="primary-button">실제 데이터 다시 조회 <span aria-hidden="true">↗</span></button><span id="refresh-note" class="small-note">자동 조회 후 필요할 때 다시 조회할 수 있어요.</span></div>
+        </article>
+        <article class="card detail-card">
+          <p class="card-kicker">DATA PASSPORT</p>
+          <h3>값의 근거</h3>
+          <dl class="meta-list">
+            <div><dt>제공처</dt><dd><a href="https://open-meteo.com/" target="_blank" rel="noreferrer noopener">Open-Meteo <span aria-hidden="true">↗</span></a></dd></div>
+            <div><dt>데이터 설명</dt><dd>현재 기온 · 날씨 모델 기반</dd></div>
+            <div><dt>조회 위치</dt><dd>서울(고정 좌표, 개인 위치 미수집)</dd></div>
+            <div><dt>원천 데이터 시각</dt><dd id="source-time">확인 전</dd></div>
+            <div><dt>가져온 시각</dt><dd id="fetched-time">확인 전</dd></div>
+            <div><dt>기준 시간대</dt><dd>Asia/Seoul (KST, UTC+09:00)</dd></div>
+            <div><dt>단위</dt><dd id="source-unit">응답 확인 전</dd></div>
+          </dl>
+          <p class="source-link"><a id="source-url" href="https://api.open-meteo.com/v1/forecast?latitude=37.5665&amp;longitude=126.9780&amp;current=temperature_2m&amp;timezone=Asia%2FSeoul&amp;temperature_unit=celsius" target="_blank" rel="noreferrer noopener">실제 원천 API URL 확인 ↗</a></p>
+          <p class="license-note">날씨 자료 제공: <a href="https://open-meteo.com/" target="_blank" rel="noreferrer noopener">Open-Meteo.com</a> (CC BY 4.0). 관측소의 실측값이 아니라 모델 기반 현재 기온입니다.</p>
+        </article>
+      </div>
+
+      <div class="status-grid">
+        <article class="card info-box"><p class="card-kicker">지금의 데이터 상태</p><h3 id="status-title" role="status" aria-live="polite">조회 대기 중</h3><p id="status-description">곧 원천 API에 요청합니다.</p><p class="error-code">error_code: <code id="error-code">none</code></p></article>
+        <article class="card info-box"><p class="card-kicker">마지막 정상값 · 과거 기록</p><h3 id="last-good-title">아직 정상 조회 기록 없음</h3><p id="last-good-description">실패한 응답으로 마지막 정상값을 덮어쓰지 않습니다.</p><p class="small-note">마지막 정상값은 최신 조회값과 구분해 표시합니다.</p></article>
+      </div>
+    </section>
+
+    <section class="records-section" id="history" aria-labelledby="history-title">
+      <div class="shell">
+        <div class="section-title-row"><div><p class="eyebrow">02 / HISTORY</p><h2 id="history-title">KST 기준 하루 한 줄</h2></div><button id="download-button" class="secondary-button" type="button">기록 CSV 저장 ↓</button></div>
+        <p class="section-intro">실제 조회의 정상값만 기록합니다. 같은 KST 날짜는 <strong>같은 기록 ID로 갱신</strong>하고, 다른 실제 날짜에 조회하면 새 기록을 만듭니다. 실패 응답은 기존 값과 기록을 지우지 않습니다.</p>
+        <div class="history-topline"><div><span class="topline-label">KST 오늘</span><strong id="today-kst">확인 중</strong></div><div><span class="topline-label">저장된 실제 날짜</span><strong id="record-count">0일</strong></div><div><span class="topline-label">어제 대비</span><strong id="delta-value">비교할 기록 없음</strong></div></div>
+        <div class="table-scroll"><table><caption class="sr-only">실제 날짜별 최신 정상 조회 기록</caption><thead><tr><th scope="col">KST 날짜</th><th scope="col">기온</th><th scope="col">원천 시각 (KST)</th><th scope="col">가져온 시각 (KST)</th><th scope="col">상태</th></tr></thead><tbody id="history-body"><tr><td colspan="5">아직 일일 기록이 없습니다.</td></tr></tbody></table></div>
+        <p class="info-bottom" id="history-explanation">서로 다른 KST 날짜에 실제 공개 데이터를 성공적으로 조회하면 어제 대비 변화량이 표시됩니다. 임의 날짜 입력이나 기록 복제는 제공하지 않습니다.</p>
+      </div>
+    </section>
+
+    <section class="section-shell shell methods-section" id="methods" aria-labelledby="methods-title">
+      <div class="section-title-row"><div><p class="eyebrow">03 / REVIEW</p><h2 id="methods-title">왜 이렇게 만들었을까요?</h2></div></div>
+      <div class="method-grid">
+        <article class="method"><span class="method-number">01</span><h3>정보가 없으면 없다고</h3><p>응답 실패 시 직전 정상값을 새로 조회한 것처럼 표시하지 않습니다. 현재 오류와 과거 정상 데이터는 서로 다른 칸에 표시됩니다.</p></article>
+        <article class="method"><span class="method-number">02</span><h3>비밀 없는 호출</h3><p>로그인·인증·API 키 없이 호출합니다. 개인 위치, 이름, 연락처와 브라우저 위치 권한은 사용하지 않습니다.</p></article>
+        <article class="method"><span class="method-number">03</span><h3>실제 날짜만 기록</h3><p>브라우저가 읽은 Asia/Seoul 날짜에 원천 시각을 검증한 뒤 한 건 저장합니다. 다른 실제 날짜는 다음 날 다시 조회해야 합니다.</p></article>
+      </div>
+      <details class="verification-detail"><summary>검사와 영수증을 구분하는 이유</summary><div class="verification-detail-body">
+        <p>이 정보판에는 두 가지 서로 다른 모드가 있습니다. <strong>실제 공개 API 모드</strong>는 서울의 현재 기온을 조회해 브라우저의 날짜별 기록을 저장합니다. <strong>합성 테스트 모드</strong>는 공식 ALEPH T04 ZIP에서 검증한 9개 고정 응답으로 저장·오류·복구 계산을 시험합니다.</p>
+        <p>합성 테스트 모드의 2026-08-24와 2026-08-25는 <strong>가상 날짜</strong>로 실제 조회 증거가 아닙니다. 과제의 <code>t04_day</code> 봉인 영수증 2건은 사이트가 자동으로 만들어줄 수 없으며, ALEPH 플랫폼에서 발급·보존되는지 최종 점검이 필요합니다. 제출 화면에서 수동으로 발급한 것처럼 주장하지 않습니다.</p>
+      </div></details>
+    </section>
+    <section class="records-section replay-section" id="replay" aria-labelledby="replay-title">
+      <div class="shell">
+        <div class="section-title-row"><div><p class="eyebrow">04 / OFFICIAL FIXTURE</p><h2 id="replay-title">공식 오류·복구 재현</h2></div><span class="quiet-label">합성 데이터 전용 · 실제 조회와 분리</span></div>
+        <p class="section-intro">공식 고정 자산의 9개 입력을 재생합니다. 여기서 생성되는 <strong>100·105·120 pt</strong> 값은 날씨 데이터가 아니라 테스트용 가상 값입니다. 실제 기온과 날짜별 조회 기록에 섞이지 않습니다.</p>
+        <div class="replay-toolbar">
+          <button type="button" class="secondary-button" id="replay-success">날짜별 저장 3단계</button>
+          <button type="button" class="secondary-button" id="replay-five">다섯 실패 자동 검사</button>
+          <button type="button" class="secondary-button" id="replay-timeout">시간 초과 재현</button>
+          <button type="button" class="primary-button" id="replay-retry" disabled>다시 시도 · D2 회복</button>
+          <button type="button" class="secondary-button" id="replay-reset">합성 상태 초기화</button>
+        </div>
+        <div class="replay-cards">
+          <article class="card info-box"><p class="card-kicker">합성 테스트 상태</p><h3 id="replay-status" aria-live="polite">아직 시작하지 않음</h3><p>freshness: <code id="replay-freshness">—</code> · error_code: <code id="replay-error">—</code></p><p class="small-note" id="replay-note">합성 상태만 초기화합니다. 실제 API 기록은 유지됩니다.</p></article>
+          <article class="card info-box"><p class="card-kicker">합성 저장 결과</p><h3 id="replay-value">—</h3><p>일별 행: <strong id="replay-rows">0</strong>건 · 변화량: <strong id="replay-delta">—</strong></p><p class="small-note" id="replay-records">합성 기록 없음</p></article>
+        </div>
+        <div class="table-scroll"><table><caption class="sr-only">공식 fixture 검사 결과</caption><thead><tr><th scope="col">Fixture</th><th scope="col">상태</th><th scope="col">오류 코드</th><th scope="col">행</th><th scope="col">마지막 정상값</th><th scope="col">결과</th></tr></thead><tbody id="replay-results"><tr><td colspan="6">상단의 검사 버튼을 눌러 주세요.</td></tr></tbody></table></div>
+        <p class="info-bottom">원본 ZIP의 17개 자산 해시를 제작 단계에서 확인했으며, 원본 파일과 <code>asset-manifest.json</code>은 공개 소스의 <code>t04/official-assets/</code>에서 볼 수 있습니다.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="shell footer-content"><p>오늘의 정보판 · ALEPH T04</p><p>실제 원천 · 상태 분리 · 날짜별 기록</p><a href="#top">위로 ↑</a></div></footer>
+</body>
+</html>
