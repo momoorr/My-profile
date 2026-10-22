@@ -1,0 +1,193 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="ALEPH T05 AI A/B 인수인계 실험 비교 보고서"><title>T05 | AI 인수인계 비교 보고서</title><style>
+:root{--white:#fff;--charcoal:#2d3138;--sky:#dff2ff}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--white);color:var(--charcoal);font-family:system-ui,'Malgun Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.8}.wrap{max-width:1020px;margin:auto;padding:36px 24px 72px}.topline{font-size:12px;letter-spacing:.12em;font-weight:750;display:flex;align-items:center;gap:12px}.dot{width:15px;height:15px;background:var(--sky);border:1px solid var(--charcoal);border-radius:5px}.hero{padding:42px 0;display:grid;grid-template-columns:1fr 220px;gap:28px;align-items:center;border-bottom:2px solid var(--sky)}.eyebrow{font-size:12px;letter-spacing:.12em;font-weight:700}h1{font-size:clamp(29px,4vw,42px);line-height:1.35;margin:8px 0 15px}.hero p{margin:0}.status{border:2px solid var(--sky);border-radius:16px;padding:20px;display:grid;gap:6px;font-size:13px}.status strong{font-size:15px}nav{display:flex;flex-wrap:wrap;gap:10px;margin:25px 0 45px}nav a{border:1px solid var(--charcoal);border-radius:10px;padding:9px 13px;background:var(--sky);text-decoration:none;font-size:13px;font-weight:650}main h1{display:none}main h2{font-size:25px;margin-top:45px;padding-bottom:12px;border-bottom:2px solid var(--sky)}main h3{font-size:19px;margin-top:28px}main p,main li{font-size:15px}main table{border-collapse:collapse;display:block;max-width:100%;overflow-x:auto;width:max-content;min-width:min(100%,750px);font-size:13px;margin:20px 0}th,td{border-bottom:1px solid var(--sky);padding:10px 12px;text-align:left;white-space:normal;min-width:90px;vertical-align:top}th{background:var(--sky)}main code{overflow-wrap:anywhere}a{color:inherit;text-underline-offset:3px}:focus-visible{outline:3px solid var(--charcoal);outline-offset:3px}footer{border-top:2px solid var(--sky);margin-top:56px;padding-top:18px;font-size:13px}@media(max-width:640px){.hero{grid-template-columns:1fr}.wrap{padding:22px 16px 55px}nav a{flex:1 1 180px;text-align:center}}
+</style></head><body><div class="wrap"><div class="topline"><span class="dot"></span> ALEPH STUDIO / T05</div>
+<header class="hero"><div><p class="eyebrow">AI HANDOVER EXPERIMENT</p><h1>대화가 끊겨도 이어지는 프로젝트</h1><p>AI A(ChatGPT)와 AI B(Gemini)의 작업 인수인계를 비교한 실제 실험 기록입니다.</p></div><div class="status"><strong>결과 해석</strong><span>실험 기록 완료</span><span>실제 코드 검증 미완료</span></div></header>
+<nav aria-label="자료 다운로드"><a href="./T05_AB_최종비교보고서.md">원본 비교 보고서</a><a href="./T05_AI_A_handoff.zip">AI A 인수인계 ZIP</a><a href="./T05_AI_A_rechecked_final.zip">AI B 제출 ZIP</a><a href="./t05_final_handover_report.md">AI B 보고서</a></nav><main id="report"><h1>ALEPH T05 — AI A/B 인수인계 실험 최종 비교 보고서</h1>
+<h2>1. 실험 목적과 범위</h2>
+<ul>
+<li>개선 대상: T03 ‘한 장 스튜디오’ 이미지·문구 편집기</li>
+<li>원본 GitHub 커밋: https://github.com/momoorr/My-profile/commit/ebd702bcba8169c305d5a15e5201076e5ca02b86</li>
+<li>목표: 잘못된 이미지·JSON을 불러와도 오류 원인을 알리고 기존 편집 내용과 템플릿을 보존한다.</li>
+<li>AI A: ChatGPT / AI B: Gemini</li>
+<li>통제: 동일 원본, 동일 고정 검사 C01~C10, 작업 시간 20분 및 사용자 요청 5회 상한</li>
+<li>인수인계 방식: AI A의 대화 전문이 아닌 패치 스크립트 및 문서 ZIP 제공</li>
+</ul>
+<h2>2. 실제 시간·요청 비교 (사용자 확인 기록)</h2>
+<table>
+<thead>
+<tr>
+  <th>항목</th>
+  <th>AI A (ChatGPT)</th>
+  <th>AI B (Gemini)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>시작 시각 (2026-10-22 KST)</td>
+  <td>16:16</td>
+  <td>16:36</td>
+</tr>
+<tr>
+  <td>종료 시각 (2026-10-22 KST)</td>
+  <td>16:31</td>
+  <td>16:40</td>
+</tr>
+<tr>
+  <td>경과 시간</td>
+  <td>15분</td>
+  <td>4분</td>
+</tr>
+<tr>
+  <td>사용자 요청</td>
+  <td>2회</td>
+  <td>약 4회 (사용자 추정; 정확한 로그 미확인)</td>
+</tr>
+<tr>
+  <td>종료 사유</td>
+  <td>사용자 명시적 종료</td>
+  <td>사용자 종료 보고</td>
+</tr>
+<tr>
+  <td>시간 상한 초과</td>
+  <td>없음</td>
+  <td>없음</td>
+</tr>
+<tr>
+  <td>요청 상한 초과</td>
+  <td>없음</td>
+  <td>정확한 요청 수 미확정</td>
+</tr>
+</tbody>
+</table>
+<p>시간은 각 단계의 시작~종료 경과 시간이며 AI 순수 추론 시간으로 해석하지 않는다. 두 AI는 맡은 작업 단계가 서로 달라 속도 성능의 공정한 단독 비교가 아니다.</p>
+<h2>3. 결과물과 실증 상태</h2>
+<h3>AI A</h3>
+<ul>
+<li>제출받은 <code>T05_AI_A_handoff.zip</code>에 <code>apply_t05.py</code>, 고정 검사표, 인수인계 문서가 들어 있었다.</li>
+<li>원본 코드 분석·수정 적용 스크립트 작성·Python 문법 검사를 보고했다.</li>
+<li>원본 <code>t03/script.js</code> 패치 실제 적용, 실행 브라우저 검사, 배포 및 새 GitHub 커밋은 수행하지 않았다고 명시했다.</li>
+<li><strong>고정 검사 0 PASS / 0 FAIL / 10 미확인</strong>. 이는 검사 자체가 실행되지 않았다는 뜻이지 기능 10개가 실패했다는 뜻은 아니다.</li>
+<li>이후 재검증 버전이 있었다는 대화 기록은 있지만, 이 보고서의 확인 가능한 A 산출물은 첨부된 최초 ZIP과 대화 중 확인된 내용이다.</li>
+</ul>
+<h3>AI B</h3>
+<ul>
+<li>Gemini의 <code>t05_final_handover_report.md</code>는 C01~C10 전부 PASS, 추가 TC11~TC15 전부 PASS라고 보고했다.</li>
+<li>업로드된 <code>T05_AI_A_rechecked_final.zip</code>에는 <code>README_FINAL.md</code>와 <code>final_test_report.json</code> <strong>2개만</strong> 들어 있다.</li>
+<li>ZIP에는 수정된 T03 HTML/CSS/JS, <code>apply_t05.py</code>, 실행 가능한 검사 코드, 로그 또는 스크린샷이 없다.</li>
+<li>Gemini의 설명 중 Python <code>main.py</code> 실행 및 <code>run_checks.py</code> 명령은 실제 T03 웹 편집기의 구조와 일치하는지 입증되지 않았다.</li>
+<li>따라서 <strong>보고서 주장 15 PASS / 독립 검증 15 미확인</strong>. PASS 주장을 실패로 단정하는 것도 피한다.</li>
+</ul>
+<h2>4. 공통 고정 검사 C01~C10</h2>
+<table>
+<thead>
+<tr>
+  <th>ID</th>
+  <th>검사</th>
+  <th>A 실검증</th>
+  <th>B 보고</th>
+  <th>B 증거 검증</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>C01</td>
+  <td>정상 PNG 업로드</td>
+  <td>미확인</td>
+  <td>PASS 주장</td>
+  <td>미확인</td>
+</tr>
+<tr>
+  <td>C02</td>
+  <td>정상 JPEG 업로드</td>
+  <td>미확인</td>
+  <td>PASS 주장</td>
+  <td>미확인</td>
+</tr>
+<tr>
+  <td>C03</td>
+  <td>TXT 등 지원하지 않는 이미지 거부</td>
+  <td>미확인</td>
+  <td>PASS 주장</td>
+  <td>미확인</td>
+</tr>
+<tr>
+  <td>C04</td>
+  <td>손상 이미지 거부 및 상태 유지</td>
+  <td>미확인</td>
+  <td>PASS 주장</td>
+  <td>미확인</td>
+</tr>
+<tr>
+  <td>C05</td>
+  <td>문구 변경 즉시 반영</td>
+  <td>미확인</td>
+  <td>PASS 주장</td>
+  <td>미확인</td>
+</tr>
+<tr>
+  <td>C06</td>
+  <td>세 화면 비율 PNG 다운로드 일치</td>
+  <td>미확인</td>
+  <td>PASS 주장</td>
+  <td>미확인</td>
+</tr>
+<tr>
+  <td>C07</td>
+  <td>템플릿 3개 저장·불러오기</td>
+  <td>미확인</td>
+  <td>PASS 주장</td>
+  <td>미확인</td>
+</tr>
+<tr>
+  <td>C08</td>
+  <td>템플릿 수정 후 새로고침 유지</td>
+  <td>미확인</td>
+  <td>PASS 주장</td>
+  <td>미확인</td>
+</tr>
+<tr>
+  <td>C09</td>
+  <td>잘못된 JSON 거부·작업 보존</td>
+  <td>미확인</td>
+  <td>PASS 주장</td>
+  <td>미확인</td>
+</tr>
+<tr>
+  <td>C10</td>
+  <td>필수 항목 누락 JSON 거부·작업 보존</td>
+  <td>미확인</td>
+  <td>PASS 주장</td>
+  <td>미확인</td>
+</tr>
+</tbody>
+</table>
+<p>추가 검사 TC11~TC15는 Gemini 보고서에만 PASS가 기록되어 있고 재현 자료는 제공되지 않았다.</p>
+<h2>5. 주요 발견과 개선 제안</h2>
+<ol>
+<li><strong>인수인계의 유용성:</strong> A는 완료·미완료·실행 절차·검사 기준을 구분해 남겼다. 이를 통해 B가 어디서 이어받아야 하는지 설명할 근거가 생겼다.</li>
+<li><strong>완료 선언과 결과물의 간극:</strong> B는 완료와 15 PASS를 보고했지만, 전달한 ZIP으로는 수정 코드를 실행하거나 검사 결과를 재현할 수 없다.</li>
+<li><strong>비교의 한계:</strong> A와 B의 수행 단계가 같지 않고 B 요청 횟수가 근삿값이다. 15분 대 4분을 곧바로 모델 성능 차이로 해석하지 않는다.</li>
+<li><strong>다음 실험 개선:</strong> 제출 전 필수 체크를 수정 코드 전체, 적용 diff, 실제 검사 실행 로그, 실행 명령, 커밋 SHA로 지정한다. 검사별 타임스탬프와 증거 파일명을 기록한다.</li>
+</ol>
+<h2>6. 제출 및 확인 방법</h2>
+<ul>
+<li>AI A 인수인계 ZIP과 AI B 최종 ZIP을 각각 열어 파일 목록 확인.</li>
+<li>A 인수인계 문서의 원본 SHA, 패치 대상과 미완료 내역 확인.</li>
+<li>B JSON 보고서의 PASS 표기 확인 후 ZIP의 수정 소스·테스트 증거 부재와 비교.</li>
+<li>정상적인 <strong>T05 개선 페이지 URL이나 T05 최종 코드 커밋은 아직 없음</strong>. 원본 T03 주소를 완성된 T05 결과물로 오인해 제출하지 않는다.</li>
+</ul>
+<h2>7. AI와 본인 판단</h2>
+<ul>
+<li>AI에게 맡긴 일: T03 오류 안내 개선용 패치 설계와 인수인계 자료 작성(A), 이어받아 수정·검증하고 최종 보고서 작성(B).</li>
+<li>내가 판단한 일: AI별 시작·종료 시각과 요청 횟수를 기록하고 작업 종료를 결정했으며 산출물을 모아 제출 전 검토했다.</li>
+<li>AI의 주장과 다르게 판단한 일: Gemini의 ‘15개 PASS’는 실행 증거가 없는 보고이므로 독립 검증 완료로 인정하지 않았다.</li>
+</ul>
+<h2>8. 자료 출처 (실험 원본)</h2>
+<ul>
+<li><code>T05_AI_A_handoff.zip</code> — A의 패치 스크립트 및 인수인계 문서</li>
+<li><code>T05_AI_A_rechecked_final.zip</code> — B의 README 및 PASS 주장 JSON</li>
+<li><code>t05_final_handover_report.md</code> — B의 서술형 결과 보고서</li>
+<li>사용자 제공 시작·종료 시각 및 요청 횟수, 본 대화의 검사 이력</li>
+</ul>
+<p><strong>최종 판정:</strong> 실험 진행 및 인수인계의 문제점 분석은 완료. 개선 코드의 실제 적용·재현 가능한 C01~C10 검증·최종 배포는 <strong>미완료</strong>.</p>
+</main><footer>T05 — 원본 보고서와 A/B 파일을 함께 공개합니다. 검증되지 않은 항목은 완료로 표시하지 않습니다.</footer></div></body></html>
