@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="T01 공개 소개 페이지에서 이어지는 T08 패스키 비공개 영역 안내입니다.">
+  <title>T08 | 패스키로 잠그는 비공개 공간</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a href="../" class="brand"><span class="brand-mark" aria-hidden="true"></span>윤아 <span class="brand-divider">|</span> Intro</a>
+      <nav aria-label="페이지 이동"><a href="../">공개 소개 돌아가기</a></nav>
+    </div>
+  </header>
+  <main class="shell" id="main">
+    <p class="over">T08 / PRIVATE SPACE</p>
+    <h1>소개는 공개하고,<br><span class="underline-sky">내 기록은 잠급니다.</span></h1>
+    <p class="lead">기존 T01 소개 페이지는 누구나 볼 수 있습니다. 이곳은 패스키 인증을 거쳐야 열리는 별도의 비공개 공간으로 구축하고 있습니다.</p>
+    <div class="grid">
+      <section class="panel public" aria-labelledby="public-heading">
+        <p class="eyebrow">01 / PUBLIC</p>
+        <h2 id="public-heading">공개 소개</h2>
+        <p>소개 · 경험 · 학습과 목표 · 공개 기준</p>
+        <p class="small">누구나 로그인 없이 T01 내용을 확인할 수 있습니다.</p>
+        <a class="action" href="../">공개 소개 페이지 <span aria-hidden="true">↗</span></a>
+      </section>
+      <section class="panel private" aria-labelledby="private-heading">
+        <p class="eyebrow">02 / PASSKEY ONLY</p>
+        <h2 id="private-heading">나만의 비공개 공간 <span aria-hidden="true">🔒</span></h2>
+        <p class="small">패스키 등록·인증과 서버 조회 연결 전에는 비공개 자료를 내려받지 않습니다.</p>
+        <div class="locked" role="status" aria-live="polite">
+          <strong>현재 잠금 상태 · 실제 내용은 미표시</strong>
+          <p>다음 단계에서 패스키 로그인 성공 후 서버가 보유한 항목을 요청합니다.</p>
+        </div>
+      </section>
+    </div>
+    <section class="catalog" aria-labelledby="catalog-heading">
+      <div class="catalog-heading">
+        <div><p class="eyebrow">PRIVATE CATEGORIES</p><h2 id="catalog-heading">비공개 공간의 세 가지 주제</h2></div>
+        <span class="tip">분류명만 공개 · 내용은 미포함</span>
+      </div>
+      <div class="tile-grid">
+        <article class="tile"><span class="number">01</span><h3>가상 프로젝트 메모</h3><p>실제 내용은 인증 후 서버에서 불러옵니다.</p></article>
+        <article class="tile"><span class="number">02</span><h3>가상 지원 목록</h3><p>실제 내용은 인증 후 서버에서 불러옵니다.</p></article>
+        <article class="tile"><span class="number">03</span><h3>가상 회고</h3><p>실제 내용은 인증 후 서버에서 불러옵니다.</p></article>
+      </div>
+    </section>
+    <p class="notice"><strong>제작 단계 안내:</strong> 이 파일은 카드 1의 공개·비공개 화면 구분용입니다. 패스키 인증, 저장된 자료 3건, 비인증 요청 401/403 차단은 아직 구현되지 않았습니다. 인증 완료 전까지 비공개 내용을 페이지 코드에 넣지 마세요.</p>
+  </main>
+  <footer class="site-footer"><div class="shell footer-inner"><span>윤아 | Intro · T08</span><a href="../">공개 소개로 돌아가기</a></div></footer>
+</body>
+</html>
