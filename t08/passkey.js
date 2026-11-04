@@ -8,6 +8,7 @@ const $ = (id) => document.getElementById(id);
 let supabase = null;
 let currentUser = null;
 let busy = false;
+let passkeyListRequest = 0;
 const API_URL = `${SUPABASE_URL.replace(/\/$/, '')}/functions/v1/t08-private-read`;
 const display = (id, visible) => { $(id).hidden = !visible; };
 const message = (text, isError = false) => {
@@ -31,11 +32,17 @@ function showLogin() {
 }
 async function listPasskeys() {
   if (!supabase || !currentUser) return;
+  // An auth-state event and a manual refresh can overlap. Only the newest
+  // request may render, and clear the previous rows *after* the await.
+  const requestId = ++passkeyListRequest;
+  const requestedUserId = currentUser.id;
+  const { data, error } = await supabase.auth.passkey.list();
+  if (requestId !== passkeyListRequest || currentUser?.id !== requestedUserId) return;
+  if (error) throw error;
+  const received = Array.isArray(data) ? data : (Array.isArray(data?.passkeys) ? data.passkeys : []);
+  const keys = [...new Map(received.map(key => [key.id, key])).values()];
   const host = $('t08-passkey-list');
   host.replaceChildren();
-  const { data, error } = await supabase.auth.passkey.list();
-  if (error) throw error;
-  const keys = Array.isArray(data) ? data : (Array.isArray(data?.passkeys) ? data.passkeys : []);
   $('t08-passkey-count').textContent = `${keys.length}개 등록됨`;
   if (keys.length === 0) {
     host.textContent = '등록된 패스키가 없습니다. 첫 패스키를 등록해 주세요.';
