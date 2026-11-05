@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="T10 논문의 AI 응답 40건을 바탕으로 공식 안내 근거와 확인되지 않은 후속 약속을 점검하는 MOA 실습 앱.">
+  <title>MOA · 근거 기반 답변 점검기 | BR-B</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="app.css">
+  <script src="research-data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#workspace">실습 화면으로 바로가기</a>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="./index.html" class="brand" aria-label="MOA 근거 점검기 처음으로"><span class="brand-symbol" aria-hidden="true">M.</span><span>MOA <small>ANSWER REVIEW</small></span></a>
+      <nav class="nav" aria-label="주요 메뉴"><a href="#workspace">직접 점검하기</a><a href="#research">논문 결과</a><a href="#method">점검 범위</a><a href="https://momoorr.github.io/My-profile/bra/" id="portfolioBack">포트폴리오로 <span aria-hidden="true">↗</span></a></nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro container">
+      <div class="intro-main">
+        <div class="eyebrow"><span class="eyebrow-line"></span> T10 RESEARCH → BR-B PRODUCT</div>
+        <div class="paper-ref">바탕이 된 논문 · <strong>근거 제한 프롬프트는 미확인 안내를 줄이는가?</strong></div>
+        <h1>AI의 답변,<br><em>끝 문장까지</em> 확인하세요.</h1>
+        <p class="lead">기업교육 운영자가 AI 답변 초안을 공식 안내와 비교해 <strong>근거 없는 안내 약속을 발견하고 수정</strong>하도록 돕는 실습 도구입니다.</p>
+        <div class="intro-actions"><a class="solid-link" href="#workspace">첫 사례 점검하기 <span aria-hidden="true">↘</span></a><a class="plain-link" href="https://momoorr.github.io/My-profile/bra/assets/T10_논문.pdf" target="_blank" rel="noopener">원문 논문 보기 <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <aside class="research-finding" aria-label="논문에서 앱으로 가져온 핵심 발견"><p class="overline">KEY FINDING / 2026.11</p><p class="finding-quote">“모른다고 말한 뒤에도,<br><strong>문서에 없는 절차</strong>를<br>약속할 수 있습니다.”</p><p class="finding-note">T10 논문 4장 · 근거 없는 후속 안내를 별도 점검해야 한다는 제안. 이 앱은 효과가 추가로 검증된 도구가 아니라 <b>연구를 적용해 본 시제품</b>입니다.</p></aside>
+    </section>
+
+    <div class="steps-band"><div class="container steps"><div><b>01</b><span>문의 사례 선택</span></div><span class="step-arrow" aria-hidden="true">›</span><div><b>02</b><span>AI 답변 확인·수정</span></div><span class="step-arrow" aria-hidden="true">›</span><div><b>03</b><span>근거 점검·수정안 확인</span></div></div></div>
+
+    <section id="workspace" class="workspace container" aria-labelledby="workspace-title">
+      <div class="section-top"><div><p class="eyebrow small-eye">TRY IT YOURSELF</p><h2 id="workspace-title">답변 하나를 직접 검토해 보세요.</h2><p>실제 T10 실험에서 수집된 가상 문의·답변을 불러옵니다. 원하는 문장으로 고쳐 시험해 볼 수도 있어요.</p></div><span class="scope-tag">계정 없이 이용 · API 키 불필요</span></div>
+      <div class="work-grid">
+        <section class="work-panel inquiry-panel" aria-labelledby="ask-label">
+          <div class="panel-top"><span class="step-num">01</span><h3 id="ask-label">문의 선택</h3></div>
+          <p class="hint">논문 속 사례부터 선택해 보세요.</p>
+          <div class="quick-select" role="group" aria-label="추천 실험 사례">
+            <button class="sample-chip selected" type="button" data-case="Q11" aria-pressed="true">Q11 · 팀원 수</button>
+            <button class="sample-chip" type="button" data-case="Q18" aria-pressed="false">Q18 · 혼합 문의</button>
+            <button class="sample-chip" type="button" data-case="Q02" aria-pressed="false">Q02 · 경계 사례</button>
+          </div>
+          <label for="questionSelect" class="field-label">실험 질문 20개 전체</label>
+          <select id="questionSelect" name="question" aria-describedby="questionHelp"></select>
+          <div id="questionHelp" class="small-note">S: 답변 가능 · U: 자료만으로 답변 불가 · M: 일부만 답변 가능</div>
+          <div class="question-quote"><span class="quote-kicker" id="questionLabel">교육생 문의 · Q11</span><p id="questionText">최종 프로젝트는 한 팀에 몇 명씩 구성하나요?</p></div>
+          <div class="ref-title"><span class="mini-icon" aria-hidden="true">≡</span> 관련 공식 안내문</div>
+          <div id="facts" class="fact-list" aria-live="polite"></div>
+          <p class="small-note">이 안내는 논문 실험에 사용한 <strong>가상 자료</strong>입니다. 실제 교육기관 정책이 아니에요.</p>
+        </section>
+
+        <section class="work-panel answer-panel" aria-labelledby="answer-label">
+          <div class="panel-top"><span class="step-num">02</span><h3 id="answer-label">AI 답변 초안</h3></div>
+          <div class="variant-row"><p class="hint">논문에 기록된 원본 응답 선택</p><div class="segmented" role="group" aria-label="실험 프롬프트 조건"><button type="button" class="active" data-condition="A" aria-pressed="true">A 일반</button><button type="button" data-condition="B" aria-pressed="false">B 근거 제한</button></div></div>
+          <label class="field-label" for="draft">검토할 답변 <span id="answerOrigin" class="field-muted">논문 실제 응답 A</span></label>
+          <textarea id="draft" rows="11" maxlength="4000" spellcheck="false" aria-describedby="draftHelp" placeholder="예시 답변을 불러오거나 직접 문장을 입력해 주세요."></textarea>
+          <div class="draft-foot"><span id="draftHelp">텍스트는 브라우저에서만 점검하며 서버로 전송하지 않습니다.</span><span id="charCount">0 / 4000자</span></div>
+          <div class="answer-actions"><button type="button" id="reload" class="reset-btn">원본 다시 불러오기</button><button type="button" id="review" class="review-btn">근거 점검하기 <span aria-hidden="true">→</span></button></div>
+          <p id="inputError" class="input-error" aria-live="polite" hidden></p>
+        </section>
+      </div>
+
+      <section class="results" id="results" aria-labelledby="resultTitle" tabindex="-1">
+        <div class="result-heading"><span class="step-num">03</span><h3 id="resultTitle">검토 결과</h3><span class="result-state" id="resultState">점검 대기</span></div>
+        <div id="resultIntro" class="result-empty"><p>위 답변을 확인하고 <strong>‘근거 점검하기’</strong>를 눌러 보세요.</p><p class="small-note">연구 원본 응답은 T10의 저장된 AI 보조 판정과 대조합니다. 직접 편집한 답변은 규칙 기반 주의 문구만 탐지합니다.</p></div>
+        <div id="resultContent" hidden>
+          <div class="result-grid"><div class="result-main"><p class="result-kicker" id="resultMode"></p><h4 id="resultHeadline"></h4><p id="resultDescription" class="result-description"></p><div class="reviewed-answer" id="annotatedAnswer" aria-label="점검한 답변"></div><div id="findingList" class="finding-list"></div></div><div class="suggestion"><p class="result-kicker">DOCUMENTED FIRST</p><h4>확인 가능한 말만 남긴 수정 예시</h4><p id="safeAnswer" class="safe-answer"></p><button type="button" class="copy-btn" id="copySafe">수정 예시 복사 <span aria-hidden="true">↗</span></button><p class="small-note">문서에서 확인한 사실과 미확인 항목만 조합한 참고 문안입니다. 실제 발송 전 담당자 확인이 필요합니다.</p></div></div>
+        </div>
+      </section>
+    </section>
+
+    <section id="research" class="research container" aria-labelledby="research-title">
+      <div class="section-top">
+        <div>
+          <p class="eyebrow small-eye">THE RESEARCH BEHIND THIS</p>
+          <h2 id="research-title">공식 자료에 없는 안내가<br>얼마나 포함됐나요?</h2>
+          <p class="research-purpose">논문에서 수집한 답변을 판정한 결과입니다. <strong>앱의 정확도나 성능 점수가 아닙니다.</strong></p>
+        </div>
+        <a class="text-arrow" href="https://momoorr.github.io/My-profile/bra/assets/T10_논문.pdf" target="_blank" rel="noopener">논문 PDF 확인 ↗</a>
+      </div>
+      <div class="study-scope" aria-label="비교 대상과 기준">
+        <span><b>비교 대상</b> A 20개 · B 20개</span>
+        <span><b>같은 응답 40개</b>에서 판정 기준만 변경</span>
+      </div>
+      <div class="research-layout">
+        <div class="stat-column">
+          <div class="mode-tabs" role="group" aria-label="논문 통계의 판정 기준">
+            <button type="button" class="selected" data-mode="base" aria-pressed="true">기본 판정</button>
+            <button type="button" data-mode="wide" aria-pressed="false">넓은 해석</button>
+            <button type="button" data-mode="narrow" aria-pressed="false">좁은 해석</button>
+          </div>
+          <p class="criterion-label" id="criterionLabel">현재 기준 · 기본 판정</p>
+          <p class="criterion-description" id="criterionDescription">문서에 없는 후속 안내 시행·공지 약속을 포함한 답변을 셉니다.</p>
+          <div class="observed-counts" role="group" aria-label="조건별 근거 없는 안내 포함 답변 수">
+            <div class="count-stat">
+              <h3>일반 프롬프트 A</h3>
+              <div class="count-summary"><p id="statA" class="count-main"><span class="count-total">20개 중</span> <strong>3개</strong></p><p id="rateA" class="count-rate">이 기준의 발견 비율 15%</p></div>
+              <div id="dotsA" class="answer-dots" role="img" aria-label="A: 20개 중 3개 답변에 근거 없는 안내 포함"></div>
+            </div>
+            <div class="count-stat">
+              <h3>근거 제한 프롬프트 B</h3>
+              <div class="count-summary"><p id="statB" class="count-main"><span class="count-total">20개 중</span> <strong>2개</strong></p><p id="rateB" class="count-rate">이 기준의 발견 비율 10%</p></div>
+              <div id="dotsB" class="answer-dots" role="img" aria-label="B: 20개 중 2개 답변에 근거 없는 안내 포함"></div>
+            </div>
+          </div>
+          <div class="dot-legend" aria-label="점 표시의 의미">
+            <span><i class="legend-dot flagged" aria-hidden="true"></i>이 기준에서 근거 없는 안내로 판정</span>
+            <span><i class="legend-dot" aria-hidden="true"></i>이 기준에서는 해당 판정 없음</span>
+          </div>
+          <p class="count-explainer">점 하나는 답변 한 개입니다. 한 답변에 해당 안내가 여러 번 있어도 <strong>답변 1개</strong>로 셉니다.</p>
+          <p class="interpretation-warning"><strong>판정 없음 ≠ 정답 보장</strong><span>표시되지 않은 답변도 다른 오류가 있을 수 있습니다. 이 비율을 전체 정확도나 앞으로의 오류율로 해석하지 마세요.</span></p>
+          <p class="stat-caption" id="statCaption"></p>
+          <p class="scope-detail">이 탭은 전체 연구 통계만 바꿉니다. 위의 개별 원본 답변 검토는 <strong>기본 판정</strong>과 판정 근거를 보여줍니다.</p>
+        </div>
+        <aside class="interpretation" aria-labelledby="interpretationTitle">
+          <p class="comparison-kicker" id="interpretationMode">기본 판정에서의 비교</p>
+          <p class="comparison-difference" id="comparisonDifference">건수 차이 · A − B: 1개 (5%p)</p>
+          <h3 id="interpretationTitle">B에서 1개 적지만,<br>우위로 단정할 수 없습니다.</h3>
+          <p id="interpretationBody">기본 판정의 차이는 Q02 한 쌍에서 나왔습니다. 넓은 해석과 좁은 해석에서는 두 조건의 건수가 같아집니다.</p>
+          <p id="comparisonExplanation">5%p는 15%와 10%의 차이입니다. B의 전체 정확도가 5% 높아졌다는 뜻이 아닙니다.</p>
+          <div class="app-purpose"><p class="result-kicker">그래서 이 앱은</p><p><strong>프롬프트 B의 우위를 증명하는 대신, 답변 끝에 덧붙은 근거 없는 후속 안내 약속을 검토하도록 돕습니다.</strong></p></div>
+          <p class="evaluation-source">출처: T10 논문의 20개 질문 × A/B 각 1회. AI 보조 의미 판정이며, 독립적인 사람 채점이나 앱 효과 검증 결과는 아닙니다.</p>
+        </aside>
+      </div>
+      <p id="statsAnnouncement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+    </section>
+
+    <section id="method" class="method container" aria-labelledby="method-title"><p class="eyebrow small-eye">HOW THIS WORKS</p><h2 id="method-title">자동 판정의 한계를 숨기지 않습니다.</h2><div class="method-grid"><article><span class="method-no">01</span><h3>논문 원본은 그대로</h3><p>논문에 기록된 20개 가상 질문·40개 실제 API 응답과 AI 보조 판정을 비교합니다. 독립적인 사람 평가 결과로 바꾸지 않습니다.</p></article><article><span class="method-no">02</span><h3>새 문장은 의심 문구만</h3><p>직접 수정한 문장은 후속 안내 약속, 미확인 인원·날짜·비용 등 정해진 표현 패턴을 표시합니다. 경고가 없더라도 정답이라고 보증하지 않습니다.</p></article><article><span class="method-no">03</span><h3>안전과 공개 범위</h3><p>연구용 가상 안내만 사용하며 로그인·API 키·추적 스크립트가 없습니다. 입력 문장은 외부 서버로 보내지지 않습니다. 실제 개인정보는 넣지 마세요.</p></article></div><div class="foot-links"><a href="https://momoorr.github.io/My-profile/bra/assets/T10_논문.pdf" target="_blank" rel="noopener">원문 연구 읽기 ↗</a><a href="#workspace">다른 사례도 점검하기 ↑</a></div></section>
+  </main>
+  <footer><div class="container footer-inner"><span>MOA · 근거 기반 답변 점검기 <small>BR-B / 2026</small></span><span>연구·기획: 김윤아 · 구현: AI 활용 바이브코딩</span><span>교육용 시제품 · 실제 정책 안내 아님</span></div></footer>
+</body>
+</html>
