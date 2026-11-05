@@ -1,4 +1,28 @@
-# T13 · MOA 운영 콘솔 v0.2 — 중간 점검 2차
+# T13 · MOA 운영 콘솔 — 최종 공개본 (v0.2)
+
+## 최종 제출·공개 자료 (2026-11-05)
+
+**현재 공개 앱은 v0.2 최종본입니다.** 최종 제출 단계에서는 **동작 코드(`index.html`, `app.js`, `style.css`)를 변경하지 않고**, 검증 기록과 발표·재현 자료를 추가했습니다.
+
+- **앱 직접 실행:** [MOA 운영 콘솔](https://momoorr.github.io/My-profile/t13/)
+- **최종 실행 ZIP:** [T13_MOA_FINAL.zip](downloads/T13_MOA_FINAL.zip) — 코드는 2차 배포 커밋 `37ec004`를 기준으로 합니다.
+- **최종 사용·재현 안내:** [FINAL_README.md](FINAL_README.md)
+- **최종 검사 근거·제한사항:** [FINAL_QA.md](FINAL_QA.md)
+- **1차 → 2차 → 최종 단계 기록:** [CHANGELOG.md](CHANGELOG.md) · [PLAN_STATUS.md](PLAN_STATUS.md)
+- **제출문:** [FINAL_SUBMISSION.md](FINAL_SUBMISSION.md)
+- **발표 슬라이드:** [PPTX](presentation/T13_MOA_최종발표자료.pptx) · [PDF](presentation/T13_MOA_최종발표자료.pdf)
+- **실제 시연 화면:** [PC 전체](evidence/desktop.png) · [운영자 검토 흐름](evidence/review_flow.png) · [모바일](evidence/mobile.png)
+
+| 단계 | 구현·정리한 범위 |
+| --- | --- |
+| **1차 · M1 (v0.1)** | 가상 문의 접수·목록, 규칙 기반 분류, 공식 근거·답변 초안/보류 |
+| **2차 · M2 (v0.2)** | 초안 수정·저장, 공식 근거 확인 체크, 검토 승인, 처리 완료·추가 확인 요청, 상태 필터 |
+| **최종 · M2 코드 유지** | 기능 추가 없이 독립 재점검 33/33, 공개 배포 확인, README/발표/시연 증거 정리 |
+
+**검증 범위:** 2차 로컬 Chromium 기능 검사 47/47, 최종 별도 조작 검사 33/33. 새 시크릿 창·실제 로컬 저장 동작은 사용자 환경에서 확인해야 합니다. 이 서비스는 **가상 데이터 및 규칙 기반 데모**이며 실제 AI·답변 발송·공동 운영 DB·실사용자 개인정보 처리는 제공하지 않습니다.
+
+---
+
 
 ## 한 줄 소개
 
@@ -12,7 +36,7 @@
 
 1. ZIP을 압축 해제합니다. `t13/index.html`, `t13/style.css`, `t13/app.js` 세 파일을 같은 폴더에 둡니다.
 2. `t13/index.html`을 더블클릭합니다. 설치·API 키·회원가입·서버가 필요하지 않습니다.
-3. GitHub Pages에 올린 후에는 `https://momoorr.github.io/My-profile/t13/`에서 새 시크릿 창으로 접속해 확인합니다. **M2 배포 전에는 이 URL이 M1일 수 있습니다.**
+3. GitHub Pages에 올린 후에는 `https://momoorr.github.io/My-profile/t13/`에서 새 시크릿 창으로 접속해 확인합니다. **공개 배포된 v0.2에서는 상단 `DEMO 02`가 표시됩니다.**
 
 ## 2차 점검 3단계
 
